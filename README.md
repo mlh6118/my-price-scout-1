@@ -4,3 +4,25 @@ This app allows you to add desired items from different online retailers to a wa
 
 ## Authors
 Marni Hager, Jae Loney, Pedro Perez, Sergii Ottryshko
+
+## User Stories
+https://python401.atlassian.net/wiki/spaces/US/pages/590051/User+Stories+-+My+Price+Scout
+
+## Database Schema
+
+[“User”: {
+“Email”:”” : String
+ “PhoneNumber”: “” : Integers
+“PhoneCarrier” : “” : String
+“ProductsList”: [] : List[object]
+}]
+The products class gives each item the attributes below:
+Product - Will have name/nickname(string), links to products(strings), current prices(integers), whether they are being tracked(Boolean), strike prices (integers).
+
+## UML
+
+See the UML drawing by clicking [here](images/my-price-scout-uml.png)
+
+## Wireframe
+
+See the wireframe [here](images/Wireframe-MyPriceScout.png)
