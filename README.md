@@ -4,7 +4,7 @@ This app allows you to add desired items from different online retailers to a wa
 
 ## Authors
 
-Marni Hager, Jae Loney, Pedro Perez, Sergii Ottryshko
+Marni Hager, Jae Loney, Pedro Perez, Sergii Otryshko
 
 ## User Stories
 
@@ -28,3 +28,10 @@ Product - Will have name/nickname(string), links to products(strings), current p
 ## Wireframe
 
 ![Wireframe](https://github.com/Cuatro-Programadores/my-price-scout/blob/main/images/Wireframe-MyPriceScout.png)
+
+## Resources
+Email Validation: https://www.geeksforgeeks.org/check-if-email-address-valid-or-not-in-python/
+Amazon Scraping: https://www.youtube.com/watch?v=DHqAQxgleoc&ab_channel=JieJenn
+Amazon Scraping: https://www.youtube.com/watch?v=Bg9r_yLk7VY&ab_channel=DevEd
+Amazon Scraping: https://github.com/ArkadiyReydman/Amazon-Walmart-Etsy-Price-Tracker/blob/master/price_tracker.py
+
