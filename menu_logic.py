@@ -13,6 +13,7 @@ class Menu:
         email = input("> ").lower()
 
         regex_email = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+        regex_number = r'(\d{3})[-. ]*(\d{3})[-. ]*(\d{4})\S+'
 
         while not (re.fullmatch(regex_email, email)):
             print("Invalid Email\nPlease try to input your email again")
@@ -22,10 +23,12 @@ class Menu:
             # print("Welcome back!")
             # self.return_user_object
         # else:
-            # print("Welcome New User!\nPlease enter your phone number")
+            # print("Welcome New User!\nPlease enter your 10 digit phone number")
             # number = input("> ")
-            # print("Welcome New User!\nPlease enter your phone number")
-            # number = input("> ")
+            # while not (re.fullmatch(regex_number, number)):
+            #     print("Invalid Email\nPlease try to input your 10 digit number again")
+            # print("Welcome New User!\nPlease enter your phone carrier")
+            # carrier = input("> ")
             ## We will need to pass these items into the user class
 
 
