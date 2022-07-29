@@ -26,3 +26,10 @@ See the UML drawing by clicking [here](images/my-price-scout-uml.png)
 ## Wireframe
 
 See the wireframe [here](images/Wireframe-MyPriceScout.png)
+
+
+## Resources
+Email Validation: https://www.geeksforgeeks.org/check-if-email-address-valid-or-not-in-python/
+Amazon Scraping: https://www.youtube.com/watch?v=DHqAQxgleoc&ab_channel=JieJenn
+Amazon Scraping: https://www.youtube.com/watch?v=Bg9r_yLk7VY&ab_channel=DevEd
+Amazon Scraping: https://github.com/ArkadiyReydman/Amazon-Walmart-Etsy-Price-Tracker/blob/master/price_tracker.py
