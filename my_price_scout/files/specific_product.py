@@ -7,5 +7,11 @@ class Specific_Product():
         self.url = url
         self.price = price
 
+    def __repr__(self):
+        return (self.website, self.url, self.price)
+
+    def __str__(self):
+        return "website= " + self.website+ "url= " + self.url+ "current scraped price= " +self.price
+
 
     
