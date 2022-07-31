@@ -19,7 +19,7 @@ class IOUtils:
         sys.exit(1)
 
     def check(self, value):
-        print(f"Is {value} right? Type y or n")
+        print(f"{value} right? Type y or n")
         verify = input("> ").lower()
         if verify == "q":
             self.quit_app()
@@ -121,29 +121,127 @@ class IOUtils:
             phone_plan=None
             self.capture_phone_plan()
 
+    def capture_product_name(self):
+        """Capture product name to pass to the Item class"""
 
-    def capture_url(self):
-        """Capture up to 3 URLs for product and address which scrape function needs to be called and call it"""
+        print("What is the name of the product you would like to track?")
 
-        print("Now we are going to have you input ")
-
-        phone_plan = input("> ").lower()
+        name = input("> ").lower()
         
-        if phone_plan == "q":
+        if name == "q":
             self.quit_app()
 
-        list_of_carriers = ["ATT", "BOOST", "CRICKET", "GOOGLEFI", "METROPCS", "MINT", "SIMPLEMOBILE", "SPRINT", "TMOBILE", "VERIZON", "VIRGIN", "XFINITY"]
+        name = self.check(name)
+        if name is None:
+            self.capture_product_name()
+        else:
+            # print(name)
+            return name
+            
+        ##NEED TO VALIDATE WHETHER THE NAME IS IN THE USER CLASS IN THE APP LOGIC!!!!
         
-        if phone_plan in list_of_carriers:
-            phone_plan = self.check(phone_plan)
-            if phone_plan is None:
-                self.capture_carrier()
+        
+    def capture_website(self):
+        """Asks the user whether they would input a link to Amazon, Target, or Walmart. Also collects the link and returns it together with the site name in lowercase."""
+
+        print("Would you like to track this product on Amazon, Target or Walmart?")
+
+        store = input("> ").title()
+        # This makes the store name Title case like Amazon, Target, or Walmart instead of being fully lowercase.
+        
+        if store == "q":
+            self.quit_app()
+
+        list_of_sites = ["Amazon", "Target", "Walmart"]
+        
+        if store in list_of_sites:
+            URL = self.capture_url(store)
+            return (store, URL)
+           
+        else:
+            print("Invalid store\nPlease try to input your store again")
+            store=None
+            self.capture_store()
+
+
+    def capture_url(self, store_name):
+        """Captures a URL for specific_product"""
+        ## Need to talk with the team about this since it is NOT validating the URL Currently past making sure than the link includes the name of the site in question.
+
+        print(f"Please input the URL for the item you would like to track from {store_name}")
+
+        url = input("> ")
+        
+        if url == "q":
+            self.quit_app()
+
+        if store_name.lower() in url:
+            url = self.check(url)
+            if url is None:
+                self.capture_url()
             else:
-                # print(phone_plan)
-                return phone_plan
+                # print(url)
+                return url
             
         else:
-            print("Invalid phone_plan\nPlease try to input your phone_plan again")
-            phone_plan=None
+            print("Invalid link\nPlease try to input your URL again")
+            url=None
             self.capture_phone_plan()
+
+
+    def capture_strike_price(self):
+        """Captures the price at which the person would like a notification on the product price."""
+
+        print("At what price do you want to be notified about your product? Please enter a positive whole number like \"99\" for how many dollars you would be willing to pay ")
+
+        price = input("> ")
         
+        if price == "q":
+            self.quit_app()
+
+        regex_number = r'^\s*[0-9]{1,10}\s*$'
+        
+        if (re.fullmatch(regex_number, price)):
+            price = self.check(price)
+            if price is None:
+                self.capture_strike_price()
+            else:
+                # print(price)
+                return price
+            
+        else:
+            print("Invalid price\nPlease try to input your price again")
+            price=None
+            self.capture_strike_price()
+
+
+    def capture_notification(self, override=None):
+        """This is the boolean that activates the price tracking notifications. The optional input override is for the tracker to be able to turn off the notification when it sends out an alert"""
+        #####This needs to be reviewed for the override section
+
+        notification= None
+
+        if override==True:
+            notification = True
+
+        if override==False:
+            notification = False
+
+        if override==None:
+
+            print("Would you like to receive text notifications when the product price drops below your ideal price? Please type y or n")
+           
+            notification = input("> ").lower()
+        
+            if notification == "q":
+                self.quit_app()
+            
+            if notification == "y":
+                notification = True
+
+            if notification == "n":
+                notification = False
+
+        return notification
+
+    

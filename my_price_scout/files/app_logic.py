@@ -40,6 +40,8 @@ class App_Logic:
     def create_user(self, email):
         pass
 
+        # Ask the user if they would like to create an account and run check from ioutil
+
         # See if the email is a user in the database
         # else:
             # print("Welcome New User!\nPlease enter your 10 digit phone number")
