@@ -18,6 +18,9 @@ from tempDBUtils import DBUtils
 #   * manage_user_items: logic for when a user has items to add, remove, or 
 #     edit items
 
+# To Do :
+# create a menu for the user with the options for the things they can change. Create methods that call the other class' functions that hold those methods 
+# Create the board that gives the other classes the info they need/build out the user with the products and build out the products with the specific products
 
 
 class App_Logic:

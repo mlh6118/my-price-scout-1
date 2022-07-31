@@ -4,7 +4,7 @@
 #   * Capture phone: inputs - phone, outputs - validated phone
 #   * Capture carrier: inputs - carrier, validated carrier
 #   * Capture url: inputs - url, validated url --> Also pass to the correct scraper function
-#   * Capture the 
+#   * Capture the information needed for the specific products (website and url. price comes back from the scraper function/class) and item as well
 
 import sys
 import re
