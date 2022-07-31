@@ -110,8 +110,48 @@ class App_Logic:
 
     def manage_user_items_menu(self):
         # See the example Sergii sent
-        print("Main Menu")
-        pass
+
+        steering = self.user_inputs.capture_menu_nav()
+
+        if steering == 1:
+            self.input_new_product()
+
+        if steering == 2:
+            self.remove_product()
+
+        if steering == 3:
+            self.change_product_links()
+
+        if steering == 4:
+            self.view_product_prices()
+
+        if steering == 5:
+            self.view_tracked_products()
+
+        if steering == 6:
+            self.toggle_product_notifications()
+
+        # There should be some sort of input in these cases for the user to go back without adjusting anything.
+
+        # Adjust price etc should show the current value before asking the user to change things.
+
+    def input_new_product(self):
+        print("Input A New Product")
+
+    def remove_product(self):
+        print("Remove A Product")
+
+    def change_product_links(self):
+        print("Change Product Links")
+
+    def view_product_prices(self):
+        print("View Product Prices")    
+
+    def view_tracked_products(self):
+        print("View Tracked Products (Products with Notifications Turned On)")
+
+    def toggle_product_notifications(self):
+        print("Toggle Product Notifications")
 
 # import keyboard
 #     keyboard.add_hotkey('q', lambda: quit())

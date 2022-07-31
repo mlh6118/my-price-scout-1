@@ -62,7 +62,7 @@ class IOUtils:
 
         print("Please enter your 10 digit phone number")
 
-        number = input("> ").lower()
+        number = input("> ")
 
         if number == "q":
             self.quit_app()
@@ -237,4 +237,38 @@ class IOUtils:
 
         return notification
 
-    
+    def capture_menu_nav(self):
+        """Displays the main menu and takes in the input for where in the menu the user would like to navigate to."""
+
+        menu = """
+        Main Menu
+        
+        Press the number next to what you would like to do to navigate through the menu
+
+        [1] Input A New Product
+        [2] Remove A Product
+        [3] Change Product Links
+        [4] View Product Prices
+        [5] View Tracked Products (Products with Notifications Turned On)
+        [6] Toggle Product Notifications
+        
+        Press q to quit at any time
+        """
+
+        print(menu)
+
+        store = input("> ")
+        # This makes the store name Title case like Amazon, Target, or Walmart instead of being fully lowercase.
+        
+        if store == "q":
+            self.quit_app()
+
+        regex_menu_number = r'^\s*[1-6]{1}\s*$'
+        
+        if (re.fullmatch(regex_menu_number, number)):
+            return int(number)
+            
+        else:
+            print("Invalid input\nPlease try to input your menu option number again")
+            number=None
+            self.capture_menu_nav()
