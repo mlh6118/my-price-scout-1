@@ -1,10 +1,10 @@
 
 class User:
-    def __init__(self, email, phone_number, cell_carrier, watchlist=[]):
+    def __init__(self, email, phone_number, cell_carrier, watchlist=None):
         self.email = email
         self.phone_number = phone_number
         self.cell_carrier = cell_carrier
-        self.watchlist = watchlist
+        self.watchlist = watchlist if watchlist else []
 
     def __repr__(self):
 
@@ -16,6 +16,7 @@ class User:
 
                 return item
 
+
     def add_item(self, item):
         self.watchlist.append(item)
 
@@ -25,13 +26,17 @@ class User:
             if item.name == item_name:
                 self.watchlist.remove(item)
 
-                return f"{item} removed"
-
-        return f"Item with name: {item_name} not found"
 
     def replace_item(self, old_item_name, item):
-        old_item_idx = self.watchlist.index(old_item_name)
-        self.watchlist[old_item_idx] = item
+        new_watchlist = []
+        
+        for old_item in self.watchlist:
+          if old_item.name == old_item_name:
+            new_watchlist.append(item)
+          else:
+            new_watchlist.append(old_item)
+        
+        self.watchlist = new_watchlist
 
     def get_watchlist(self):
 
