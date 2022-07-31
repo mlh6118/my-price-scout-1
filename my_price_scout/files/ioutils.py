@@ -8,6 +8,7 @@
 
 import sys
 import re
+## Need to review with the team quit exception - there has to be a dry way to write it.
 
 class IOUtils:
     """This is the class that validates all of the user inputs"""
@@ -33,6 +34,8 @@ class IOUtils:
     def capture_email(self):
         """Capture email: inputs - email, outputs - validated email """
 
+        print("Enter your email to get started")
+
         email = input("> ").lower()
         
         if email == "q":
@@ -57,12 +60,14 @@ class IOUtils:
     def capture_number(self):
         """Capture number: inputs - 10 digit phone number, outputs - validated number """
 
+        print("Please enter your 10 digit phone number")
+
         number = input("> ").lower()
 
         if number == "q":
             self.quit_app()
 
-        regex_number = r'(\d{3})[-. ]*(\d{3})[-. ]*(\d{4})\S+'
+        regex_number = r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$'
 
         if (re.fullmatch(regex_number, number)):
             number = self.check(number)
@@ -81,7 +86,9 @@ class IOUtils:
     def capture_carrier(self):
         """Capture cell phone carrier: inputs - carrier, outputs - String"""
 
-        phone_plan = input("> ").lower()
+        print("Please choose from the following phone carriers.\nATT, BOOST, CRICKET, GOOGLEFI, METROPCS, MINT, SIMPLEMOBILE, SPRINT, TMOBILE, VERIZON, VIRGIN, XFINITY\nIf your provider is not listed, we do not support your carrier at this time. Please press q to exit")
+
+        phone_plan = input("> ").upper()
         
         if phone_plan == "q":
             self.quit_app()
@@ -90,36 +97,22 @@ class IOUtils:
         
         if phone_plan in list_of_carriers:
             phone_plan = self.check(phone_plan)
+
             if phone_plan is None:
                 self.capture_carrier()
+
+            if phone_plan is "TMOBILE":
+                print("Please note it can take several hours for TMOBILE messages to be received by the user!")
+                return phone_plan
+        
             else:
                 # print(phone_plan)
                 return phone_plan
-
-    def capture_carrier(self):
-        """Capture up to 3 URLs for product"""
-
-        print("Please choose from the following phone plan.\nATT, BOOST, CRICKET, GOOGLEFI, METROPCS, MINT, SIMPLEMOBILE, SPRINT, TMOBILE, VERIZON, VIRGIN, XFINITY\nIf your provider is not listed, we do not support your carrier at this time. Please press q to exit")
-
-        phone_plan = input("> ").lower()
-        
-        if phone_plan == "q":
-            self.quit_app()
-
-        list_of_carriers = ["ATT", "BOOST", "CRICKET", "GOOGLEFI", "METROPCS", "MINT", "SIMPLEMOBILE", "SPRINT", "TMOBILE", "VERIZON", "VIRGIN", "XFINITY"]
-        
-        if phone_plan in list_of_carriers:
-            phone_plan = self.check(phone_plan)
-            if phone_plan is None:
-                self.capture_carrier()
-            else:
-                # print(phone_plan)
-                return phone_plan
-            
         else:
             print("Invalid phone_plan\nPlease try to input your phone_plan again")
             phone_plan=None
-            self.capture_phone_plan()
+            self.capture_carrier()
+
 
     def capture_product_name(self):
         """Capture product name to pass to the Item class"""

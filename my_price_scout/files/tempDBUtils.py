@@ -1,10 +1,8 @@
 class DBUtils():
-    def get_email(email):
+
+    def get_data(self, email):
         return None
 
-    def get_data(email):
-        return None
-
-    def set_data():
+    def set_data(self, dataset):
         return None
     
