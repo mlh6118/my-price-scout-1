@@ -8,14 +8,17 @@ class User:
 
     def __repr__(self):
 
-        return f"email: {self.name}, phone number: {self.phone_number}, cell carrier: {self.cell_carrier}, items: {self.watchlist}"
+        return f"email: {self.email}, phone number: {self.phone_number}, cell carrier: {self.cell_carrier}, items: {self.watchlist}"
+
+    def __str__(self):
+
+        return f"email: {self.email}, phone number: {self.phone_number}, cell carrier: {self.cell_carrier}, items: {self.watchlist}"
 
     def get_item(self, item_name):
         for item in self.watchlist:
             if item.name == item_name:
 
                 return item
-
 
     def add_item(self, item):
         self.watchlist.append(item)
@@ -26,16 +29,15 @@ class User:
             if item.name == item_name:
                 self.watchlist.remove(item)
 
-
     def replace_item(self, old_item_name, item):
         new_watchlist = []
-        
+
         for old_item in self.watchlist:
-          if old_item.name == old_item_name:
-            new_watchlist.append(item)
-          else:
-            new_watchlist.append(old_item)
-        
+            if old_item.name == old_item_name:
+                new_watchlist.append(item)
+            else:
+                new_watchlist.append(old_item)
+
         self.watchlist = new_watchlist
 
     def get_watchlist(self):
