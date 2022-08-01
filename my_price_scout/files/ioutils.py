@@ -1,10 +1,16 @@
 # IO Utils Class Project Framework
 
 #   * Capture email: inputs - email, outputs - validated email 
-#   * Capture phone: inputs - phone, outputs - validated phone
+#   * Capture number: inputs - phone, outputs - validated phone
 #   * Capture carrier: inputs - carrier, validated carrier
-#   * Capture url: inputs - url, validated url --> Also pass to the correct scraper function
-#   * Capture the information needed for the specific products (website and url. price comes back from the scraper function/class) and item as well
+#   * Capture product_name: inputs - user product nickname, validated carrier
+#   * Capture website: inputs - website name from list 
+#   * Capture url: inputs - url, validated url(currently there is barely validation) --> (changed)Also pass to the correct scraper function- This will actually happen in App!
+#   * Capture strike_price: inputs - integer 
+#   * Capture notification: inputs Boolean or user input returns Boolean or none
+#   * Capture menu_nav: inputs - number from 1-6 based on where the user would like to go
+
+
 
 import sys
 import re
@@ -119,7 +125,7 @@ class IOUtils:
     def capture_product_name(self):
         """Capture product name to pass to the Item class"""
 
-        print("What is the name of the product you would like to track?")
+        print("What is the name of the product?")
 
         name = input("> ").lower()
         
@@ -156,7 +162,7 @@ class IOUtils:
         else:
             print("Invalid store\nPlease try to input your store again")
             store=None
-            self.capture_store()
+            self.capture_website()
 
 
     def capture_url(self, store_name):
@@ -173,7 +179,7 @@ class IOUtils:
         if store_name.lower() in url:
             url = self.check(url)
             if url is None:
-                self.capture_url()
+                self.capture_url(store_name)
             else:
                 # print(url)
                 return url
@@ -181,7 +187,7 @@ class IOUtils:
         else:
             print("Invalid link\nPlease try to input your URL again")
             url=None
-            self.capture_phone_plan()
+            self.capture_url(store_name)
 
 
     def capture_strike_price(self):
@@ -202,7 +208,7 @@ class IOUtils:
                 self.capture_strike_price()
             else:
                 # print(price)
-                return price
+                return int(price)
             
         else:
             print("Invalid price\nPlease try to input your price again")
@@ -231,12 +237,16 @@ class IOUtils:
             if notification == "q":
                 self.quit_app()
             
-            if notification == "y":
+            elif notification == "y":
                 notification = True
 
-            if notification == "n":
+            elif notification == "n":
                 notification = False
 
+            else:
+                print("Invalid input\nPlease input y or n")
+                notification=None
+                self.capture_notification()
         return notification
 
     def capture_menu_nav(self):
@@ -248,11 +258,11 @@ Main Menu
 To navigate through the menu:
 Press the number next to what you would like to do 
 
-[1] Input A New Product
-[2] Remove A Product
-[3] Change Product Links
-[4] View Product Prices
-[5] View Tracked Products (Products with Notifications Turned On)
+[1] View Product Prices
+[2] Input A New Product
+[3] Remove A Product
+[4] Add Product Links
+[5] Remove Product Links
 [6] Toggle Product Notifications
 
 Press q to quit at any time
@@ -276,10 +286,29 @@ Press q to quit at any time
             nav=None
             self.capture_menu_nav()
 
+    def how_many_links(self):
+        """User can add up to three links"""    
 
+        print("You can add up to three product links to track for this product - one each for Amazon, Walmart, or Target. How many links would you like to add at this time? Please enter an integer- 1, 2, or 3")
 
+        count = input("> ")
+        
+        if count == "q":
+            self.quit_app()
 
-
-
-
+        regex_menu_number = r'^([1-3])$'
+        
+        if (re.fullmatch(regex_menu_number, count)):
+            return int(count)
             
+        else:
+            print("Invalid input\nthe amount of links you would like to track as an integer between 1-3")
+            count=None
+            self.how_many_links()
+
+
+
+
+
+
+

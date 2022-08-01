@@ -1,4 +1,6 @@
-#Updated to add a __str__ and change name to email in the __str__ and __repr__
+#Updated to add a __str__ and change name to email in the __str__ 
+# Updated the repr to have just the user information
+# Line 32 needs to be changed since it is called product_name in the products file. Function is still coming back as not defined.
 
 class User:
     def __init__(self, email, phone_number, cell_carrier, watchlist=None):
@@ -28,7 +30,8 @@ class User:
     def remove_item(self, item_name):
 
         for item in self.watchlist:
-            if item.name == item_name:
+            #!!!!!!!!!!!!!!!!!!!!CHANGE!!!!!!!!!! item.name needs to be item.product_name
+            if item.product_name == item_name:
                 self.watchlist.remove(item)
 
 

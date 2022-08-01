@@ -1,6 +1,28 @@
+#File Structure:
+#   * add_specific_product: inputs - Specific Product Object, output - confirmation string  (may need to 
+#     break this out to individual links)
+#   * product_url_count: inputs - name, output - int
+#   * remove_url: inputs - Link aka specific product, output - confirmation 
+#   * add_name: inputs - name, output - confirmation string
+#   * add_target_price: - inputs - int, output - confirmation string
+#     string
+#   * is_product_being_tracked: inputs - boolean, output - string about tracking, 
+#     returns boolean (this should toggle tracking)
+#   * get_summary: inputs - name, output - all data for the item (representation)
+#   * change_url: inputs - website name, output - confirmation, calls 
+#     remove_url followed by add_url
+
+
+
+# Changes: in the init product name and target price are reversed
+# Proposed changes- can remove_url handle in the logic of checking product_url_count?
+# Can we use the str instead of get_summary?
+# Can we add a str with ProductName, Target Price, Product List?
+
+
 
 class Product:
-    def __init__(self, target_price, product_name,
+    def __init__(self, product_name,target_price,
                  is_product_being_tracked=True,
                  specific_product_list=[]):
         self.product_name = product_name
@@ -11,6 +33,9 @@ class Product:
     def __repr__(self):
         return f"{self.specific_product_list}, Product Name:" \
                f" {self.product_name}, Target Price: {self.target_price}"
+
+    def __str__(self):
+        return f"Product Name: {self.product_name}, Target Price: {self.target_price}, {self.specific_product_list},"
 
     def add_specific_product(self, specific_product):
         """
@@ -53,3 +78,6 @@ class Product:
                 return f"{specific_product} removed."
 
         return f"Specific product on {website} not found."
+
+    def get_summary(self):
+        pass

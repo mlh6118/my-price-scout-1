@@ -8,10 +8,10 @@ class Specific_Product():
         self.price = price
 
     def __repr__(self):
-        return (self.website, self.url, self.price)
+        return f'Specific_Product("{self.website}","{self.url}",{self.price})'
 
     def __str__(self):
-        return "website= " + self.website+ "url= " + self.url+ "current scraped price= " +self.price
+        return f'(Website = {self.website}, url = {self.url},  current price = {self.price})'
 
 
     

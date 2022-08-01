@@ -19,10 +19,14 @@
 # create a menu for the user with the options for the things they can change. Create methods that call the other class' functions that hold those methods 
 # Create the board that gives the other classes the info they need/build out the user with the products and build out the products with the specific products
 
+## Need the team - Somewhere we need to add the sleep function that calls the scraper every 10 minutes. Not sure how that gets integrated with the serverless portion.
+## View Tracked Products and View Products and Pricing have been combined into view product info since that would be returning all of the product objects. This only works if we move get summary to user
+## Looks like there would need to be another edit product section to incorporate functions from temp_product and_name, add_target_price. These functions may not be necessary since we are passing this to the product to start with.
+
 import sys
 from ioutils import IOUtils
 from tempDBUtils import DBUtils
-from user import User
+from tempuser import User
 from tempproduct import Product
 from specific_product import Specific_Product
 from tempscraper import Scraper
@@ -73,6 +77,10 @@ class App_Logic:
 
         print (self.user)
 
+        print("Let's track your first product")
+
+        self.menu_input_new_product()
+
         self.save_user()
         
 
@@ -114,46 +122,166 @@ class App_Logic:
         steering = self.user_inputs.capture_menu_nav()
 
         if steering == 1:
-            self.input_new_product()
+            self.menu_view_product_info()
+            self.manage_user_items_menu()
 
         if steering == 2:
-            self.remove_product()
+            self.menu_input_new_product()
+            self.manage_user_items_menu()
 
         if steering == 3:
-            self.change_product_links()
+            self.menu_remove_product()
+            self.manage_user_items_menu()
 
         if steering == 4:
-            self.view_product_prices()
+            self.menu_add_product_links()
+            self.manage_user_items_menu()
 
         if steering == 5:
-            self.view_tracked_products()
+            self.menu_remove_product_links()
+            self.manage_user_items_menu()
+
 
         if steering == 6:
-            self.toggle_product_notifications()
+            self.menu_toggle_product_notifications()
+            self.manage_user_items_menu()
 
         # There should be some sort of input in these cases for the user to go back without adjusting anything.
 
         # Adjust price etc should show the current value before asking the user to change things.
 
-    def input_new_product(self):
+    
+## The functions from here down need to be linked with other class methods to test whether they actually work.
+    def menu_view_product_info(self):
+        ##This function may not work yet - things that break are commented out
+        print("View Product Info")
+        # print("You are currently tracking:")
+        # print(self.user)    
+
+        # watchlist = self.user.get_watchlist()
+        # print(watchlist)
+
+        print(self.user.watchlist)
+        product_object_list = self.user.get_watchlist()
+        
+        for _ in product_object_list:
+            # The _ means some item
+            print(self.product.get_summary())
+
+
+    def menu_input_new_product(self):
+        """Creating a new Product Object"""
         print("Input A New Product")
 
+        name = self.user_inputs.capture_product_name()
+        strike_price = self.user_inputs.capture_strike_price()
+        notifications = self.user_inputs.capture_notification()
+        watchlist = []
+        
+        number = self.user_inputs.how_many_links()
+        # print(f"number={number}")
+
+        for _ in range(number):
+            #This just calls adds specific products to the watchlist based on how many the user says they would like to add.
+            watchlist.append(self.add_specific_product())
         
 
-    def remove_product(self):
+        self.product=Product(name, strike_price, notifications, watchlist)  
+
+        self.user.add_item(self.product)
+
+        self.save_user()
+
+        print("New Product Added!")      
+
+
+    def add_specific_product(self):
+        """Creating a new Specific Product Object"""
+        
+        print("Let's Collect some information about your product")
+        website, url = self.user_inputs.capture_website()
+
+        if website == "Amazon":
+            current_price = self.scraper.scrape_amazon()
+
+        if website == "Target":
+            current_price = self.scraper.scrape_target()
+
+        if website == "Walmart":
+            current_price = self.scraper.scrape_walmart()
+
+        self.specific_product = Specific_Product(website, url, current_price)
+
+        print("Product Information has been added!")
+    
+        return self.specific_product
+      
+
+    def menu_remove_product(self):
         print("Remove A Product")
 
-    def change_product_links(self):
+        print("Here is the list of products you currently have saved:")
+        self.menu_view_product_info()
+        print("You are removing a product")
+        
+        name = self.user_inputs.capture_product_name()
+
+        self.user.remove_item(name)
+        # Getting an error -  name 'product_name' is not defined. Error between fetching from user and product classes.
+
+        print(f"{name} has been removed from tracking")
+
+
+# This function is unfinished
+    def menu_add_product_links(self):
         print("Change Product Links")
 
-    def view_product_prices(self):
-        print("View Product Prices")    
+        print("Here is the list of products you currently have saved:")
+        self.menu_view_product_info()
+        print("You are changing a link for a product")
 
-    def view_tracked_products(self):
-        print("View Tracked Products (Products with Notifications Turned On)")
+        name = self.user_inputs.capture_product_name()
 
-    def toggle_product_notifications(self):
+        self.product = self.user.get_item(name)
+
+        self.specific_product = self.add_specific_product()
+
+        # self.product.add_url(self.specific_product)
+        # This crucial bit is not working for some reason
+
+# This function is unfinished
+    def menu_remove_product_links(self):
+        print("Change Product Links")
+
+        print("Here is the list of products you currently have saved:")
+        self.menu_view_product_info()
+        print("You are changing a link for a product")
+
+        name = self.user_inputs.capture_product_name()
+
+        print("Which website's link would you like to remove?")
+        website = self.user_inputs.capture_website()
+
+        self.product = self.user.get_item(name)
+
+        # self.product.remove_url(website)
+        # This crucial bit is not working for some reason
+
+# This function is unfinished
+    def menu_toggle_product_notifications(self):
         print("Toggle Product Notifications")
+        print("Here is the list of products you currently have saved:")
+        self.menu_view_product_info()
+        print("You are changing the notification tracking for a product")
+
+        name = self.user_inputs.capture_product_name()
+        self.product = self.user.get_item(name)
+        
+
+        #We need to get to the right place in the product to toggle this. Not yet done.
+        self.user_inputs.capture_notification
+        print("This change has been captured")
+
 
 # import keyboard
 #     keyboard.add_hotkey('q', lambda: quit())
@@ -171,5 +299,6 @@ if __name__ == "__main__":
     try:
         new_app = App_Logic()
         new_app.start()
+        
     except KeyboardInterrupt:
         new_app.keyboard_quit('You have pressed CTRL-C so Goodbye!')
