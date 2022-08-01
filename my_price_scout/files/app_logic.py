@@ -138,6 +138,8 @@ class App_Logic:
     def input_new_product(self):
         print("Input A New Product")
 
+        
+
     def remove_product(self):
         print("Remove A Product")
 

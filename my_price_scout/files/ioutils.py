@@ -90,18 +90,20 @@ class IOUtils:
 
         phone_plan = input("> ").upper()
         
-        if phone_plan == "q":
+        if phone_plan == "Q":
             self.quit_app()
 
-        list_of_carriers = ["ATT", "BOOST", "CRICKET", "GOOGLEFI", "METROPCS", "MINT", "SIMPLEMOBILE", "SPRINT", "TMOBILE", "VERIZON", "VIRGIN", "XFINITY"]
-        
+        list_of_carriers = ["Q", "ATT", "BOOST", "CRICKET", "GOOGLEFI", "METROPCS", "MINT", "SIMPLEMOBILE", "SPRINT", "TMOBILE", "VERIZON", "VIRGIN", "XFINITY"]
+
+
         if phone_plan in list_of_carriers:
+
             phone_plan = self.check(phone_plan)
 
             if phone_plan is None:
                 self.capture_carrier()
 
-            if phone_plan is "TMOBILE":
+            if phone_plan == "TMOBILE":
                 print("Please note it can take several hours for TMOBILE messages to be received by the user!")
                 return phone_plan
         
@@ -241,34 +243,43 @@ class IOUtils:
         """Displays the main menu and takes in the input for where in the menu the user would like to navigate to."""
 
         menu = """
-        Main Menu
-        
-        Press the number next to what you would like to do to navigate through the menu
+Main Menu
 
-        [1] Input A New Product
-        [2] Remove A Product
-        [3] Change Product Links
-        [4] View Product Prices
-        [5] View Tracked Products (Products with Notifications Turned On)
-        [6] Toggle Product Notifications
-        
-        Press q to quit at any time
+To navigate through the menu:
+Press the number next to what you would like to do 
+
+[1] Input A New Product
+[2] Remove A Product
+[3] Change Product Links
+[4] View Product Prices
+[5] View Tracked Products (Products with Notifications Turned On)
+[6] Toggle Product Notifications
+
+Press q to quit at any time
         """
 
         print(menu)
 
-        store = input("> ")
-        # This makes the store name Title case like Amazon, Target, or Walmart instead of being fully lowercase.
+        nav = input("> ")
+        # This makes the nav name Title case like Amazon, Target, or Walmart instead of being fully lowercase.
         
-        if store == "q":
+        if nav == "q":
             self.quit_app()
 
-        regex_menu_number = r'^\s*[1-6]{1}\s*$'
+        regex_menu_number = r'^([1-6])$'
         
-        if (re.fullmatch(regex_menu_number, number)):
-            return int(number)
+        if (re.fullmatch(regex_menu_number, nav)):
+            return int(nav)
             
         else:
             print("Invalid input\nPlease try to input your menu option number again")
-            number=None
+            nav=None
             self.capture_menu_nav()
+
+
+
+
+
+
+
+            
