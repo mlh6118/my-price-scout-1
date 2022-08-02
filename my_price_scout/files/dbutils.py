@@ -19,13 +19,19 @@ class DBUtils():
 
     def set_user(self, user):
 
+        found_user = self.connection.user_data.user_data.find_one(
+            {f"email": {user.email}})
+        if found_user:
+            self.connection.user_data.user_data.delete_one(
+                {f"email": {user.email}})
+
         user_document = {
             "email": f"{user.email}",
             "phone_number": user.phone_number,
             "cell_carrier": f"{user.cell_carrier}",
             "watchlist": [{"name": product.product_name, "is_product_being_tracked": product.is_product_being_tracked, "specific_product_list": [{"website": f"{specific_product.website}", "url": f"{specific_product.url}", "price": f"{specific_product.price}"} for specific_product in product.specific_product_list], "target_price": f"{product.target_price}"} for product in user.watchlist]
         }
-        print(user_document)
+
         self.connection.user_data.user_data.insert_one(user_document)
 
     def get_user(self, user_name):
