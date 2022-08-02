@@ -16,7 +16,7 @@ class User:
 
     def get_item(self, item_name):
         for item in self.watchlist:
-            if item.name == item_name:
+            if item.product_name == item_name:
 
                 return item
 
@@ -26,14 +26,14 @@ class User:
     def remove_item(self, item_name):
 
         for item in self.watchlist:
-            if item.name == item_name:
+            if item.product_name == item_name:
                 self.watchlist.remove(item)
 
     def replace_item(self, old_item_name, item):
         new_watchlist = []
 
         for old_item in self.watchlist:
-            if old_item.name == old_item_name:
+            if old_item.product_name == old_item_name:
                 new_watchlist.append(item)
             else:
                 new_watchlist.append(old_item)
