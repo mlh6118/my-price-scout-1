@@ -11,6 +11,9 @@
 #   * Capture menu_nav: inputs - number from 1-6 based on where the user would like to go
 
 
+# Notification not saving properly
+# Hitting enter should be quit on io
+
 
 import sys
 import re

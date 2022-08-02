@@ -2,12 +2,15 @@
 # Updated the repr to have just the user information
 # Line 32 needs to be changed since it is called product_name in the products file. Function is still coming back as not defined.
 
+from tempproduct import Product
+
 class User:
     def __init__(self, email, phone_number, cell_carrier, watchlist=None):
         self.email = email
         self.phone_number = phone_number
         self.cell_carrier = cell_carrier
         self.watchlist = watchlist if watchlist else []
+
 
     def __repr__(self):
 
@@ -19,8 +22,7 @@ class User:
 
     def get_item(self, item_name):
         for item in self.watchlist:
-            if item.name == item_name:
-
+            if item.product_name == item_name:
                 return item
 
 

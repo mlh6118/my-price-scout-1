@@ -22,6 +22,7 @@
 
 
 class Product:
+    # Changed the order in the init file
     def __init__(self, product_name,target_price,
                  is_product_being_tracked=True,
                  specific_product_list=[]):
@@ -32,7 +33,8 @@ class Product:
 
     def __repr__(self):
         return f"{self.specific_product_list}, Product Name:" \
-               f" {self.product_name}, Target Price: {self.target_price}"
+               f" {self.product_name}, Target Price: {self.target_price}, Notifications: {self.is_product_being_tracked}"
+        # Repr needs notifications
 
     def __str__(self):
         return f"Product Name: {self.product_name}, Target Price: {self.target_price}, {self.specific_product_list},"

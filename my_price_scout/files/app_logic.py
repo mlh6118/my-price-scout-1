@@ -64,7 +64,7 @@ class App_Logic:
         if self.database.get_data(email) == None:
             self.create_user(email)
         else:
-            self.get_user(email)
+            self.user = self.get_user(email)
 
 
     def create_user(self, email):
@@ -86,14 +86,15 @@ class App_Logic:
 
     def save_user(self):
         """Parse the data from the users input and send it to the DBUtils as an object"""
-        self.user_data = {self.user.email: {
-            "email": self.user.email,
-            "phone_number": self.user.phone_number,
-            "cell_carrier": self.user.cell_carrier,
-            "watchlist": self.user.watchlist
-            }
-        }
-        self.database.set_data(self.user_data)
+        # self.user_data = {self.user.email: {
+        #     "email": self.user.email,
+        #     "phone_number": self.user.phone_number,
+        #     "cell_carrier": self.user.cell_carrier,
+        #     "watchlist": self.user.watchlist
+        #     }
+        # }
+        self.database.set_data(self.user)
+        # Part of this is voided since we are parsing through the db utils function
 
 
     def get_user(self, email):
@@ -161,7 +162,7 @@ class App_Logic:
         # watchlist = self.user.get_watchlist()
         # print(watchlist)
 
-        print(self.user.watchlist)
+        print(self.user)
         product_object_list = self.user.get_watchlist()
         
         for _ in product_object_list:
@@ -267,19 +268,43 @@ class App_Logic:
         # self.product.remove_url(website)
         # This crucial bit is not working for some reason
 
-# This function is unfinished
+
     def menu_toggle_product_notifications(self):
         print("Toggle Product Notifications")
         print("Here is the list of products you currently have saved:")
         self.menu_view_product_info()
         print("You are changing the notification tracking for a product")
 
-        name = self.user_inputs.capture_product_name()
-        self.product = self.user.get_item(name)
-        
+        old_name = self.user_inputs.capture_product_name()
 
-        #We need to get to the right place in the product to toggle this. Not yet done.
-        self.user_inputs.capture_notification
+        print(old_name)
+
+        print(self.user.get_item(old_name)) # Up to here was mysteriously working
+
+
+        # Pineapple is the name of the temporary product object that we are changing
+        pineapple = self.user.get_item(old_name)
+
+        print(pineapple)
+        print(pineapple.is_product_being_tracked)
+        print(f'pineapple is: ', type(pineapple))
+
+        notification = self.user_inputs.capture_notification()
+
+        name = pineapple.product_name
+        strike_price = pineapple.target_price
+        watchlist = pineapple.specific_product_list
+        
+        # We need to delete the current product from the user and replace it with this product that we rebuilt
+        self.product=Product(name, strike_price, notification, watchlist)  
+
+        self.user.remove_item(old_name)
+        self.user.add_item(self.product)
+        
+        self.save_user()
+
+        print(self.user)
+
         print("This change has been captured")
 
 
