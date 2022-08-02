@@ -23,6 +23,15 @@
 ## View Tracked Products and View Products and Pricing have been combined into view product info since that would be returning all of the product objects. This only works if we move get summary to user
 ## Looks like there would need to be another edit product section to incorporate functions from temp_product and_name, add_target_price. These functions may not be necessary since we are passing this to the product to start with.
 
+
+## To Do List
+# Hitting enter from io utils - especially in input carrier.
+# ioutils testing
+# Toggle Notifications not saving in User
+# Handle Error Message to User before breaking
+# Product name not saving in user
+
+
 import sys
 from ioutils import IOUtils
 from tempDBUtils import DBUtils
@@ -59,7 +68,7 @@ class App_Logic:
         """Takes in the users email as an input and checks the database for the user. Routes to create a new user or return user information based on Database returned info."""
 
         email = self.user_inputs.capture_email()
-        print(email)
+        # print(email)
 
         if self.database.get_data(email) == None:
             self.create_user(email)
@@ -249,6 +258,7 @@ class App_Logic:
 
         # self.product.add_url(self.specific_product)
         # This crucial bit is not working for some reason
+
 
 # This function is unfinished
     def menu_remove_product_links(self):

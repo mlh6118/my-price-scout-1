@@ -8,7 +8,7 @@ class Specific_Product():
         self.price = price
 
     def __repr__(self):
-        return f'Specific_Product("{self.website}","{self.url}",{self.price})'
+        return f'Specific_Product(Website: {self.website}, URL: {self.url}, Price: {self.price})'
 
     def __str__(self):
         return f'(Website = {self.website}, url = {self.url},  current price = {self.price})'
