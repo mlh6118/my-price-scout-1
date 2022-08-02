@@ -35,10 +35,10 @@
 import sys
 from ioutils import IOUtils
 from tempDBUtils import DBUtils
-from tempuser import User
-from tempproduct import Product
+from user import User
+from product import Product
 from specific_product import Specific_Product
-from tempscraper import Scraper
+from scraper import Scraper
 from temptracker import Tracker
 
 
@@ -70,7 +70,7 @@ class App_Logic:
         email = self.user_inputs.capture_email()
         # print(email)
 
-        if self.database.get_data(email) == None:
+        if self.database.get_user(email) == None:
             self.create_user(email)
         else:
             self.user = self.get_user(email)
@@ -95,34 +95,25 @@ class App_Logic:
 
     def save_user(self):
         """Parse the data from the users input and send it to the DBUtils as an object"""
-        # self.user_data = {self.user.email: {
-        #     "email": self.user.email,
-        #     "phone_number": self.user.phone_number,
-        #     "cell_carrier": self.user.cell_carrier,
-        #     "watchlist": self.user.watchlist
-        #     }
-        # }
-        self.database.set_data(self.user)
+
+        self.database.set_user(self.user)
         # Part of this is voided since we are parsing through the db utils function
 
 
     def get_user(self, email):
-        """Parse the data from the database and make a new user object"""
+        """Parse the data from the database and make a new user object.
+        The get_user function from the database sends back a user object fully put together."""
         #This is where we need to set up the retrieval for the user object - depends on how we input the user information
         
-        if self.database.get_data(email) is None:
+        if self.database.get_user(email) is None:
             return None
         
         else:
             print("Welcome back!")
 
-            self.user_data = self.database.get_data(email)
+            papaya = self.database.get_user(email)
 
-            number = self.user_data[email]["phone_number"]
-            carrier = self.user_data[email]["cell_carrier"]
-            watchlist = self.user_data[email]["watchlist"]
-
-            self.user = User(email, number, carrier, watchlist)
+            self.user = papaya
         
     
 
