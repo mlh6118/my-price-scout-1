@@ -38,7 +38,7 @@ from dbutils import DBUtils
 from user import User
 from product import Product
 from specific_product import Specific_Product
-from scraper import Scraper
+from tempscraper import Scraper
 from temptracker import Tracker
 
 # The scraper function will return a string if the url is wrong or something but an integer if the scraper work - need to update ioutils
@@ -148,6 +148,7 @@ class App_Logic:
 
 # The functions from here down need to be linked with other class methods to test whether they actually work.
 
+
     def menu_view_product_info(self):
         # This function may not work yet - things that break are commented out
         print("View Product Info")
@@ -160,17 +161,14 @@ class App_Logic:
         print(self.user)
         product_object_list = self.user.get_watchlist()
 
-        for _ in product_object_list:
-            # The _ means some item
-            print(self.product.get_summary())
-
     def menu_input_new_product(self):
         """Creating a new Product Object"""
-        print("Input A New Product")
+        print(
+            "Input A New Product. All new items are automatically tracked for notifications")
 
         name = self.user_inputs.capture_product_name()
         strike_price = self.user_inputs.capture_strike_price()
-        notifications = self.user_inputs.capture_notification()
+        # notifications = self.user_inputs.capture_notification()
         watchlist = []
 
         number = self.user_inputs.how_many_links()
@@ -180,7 +178,8 @@ class App_Logic:
             # This just calls adds specific products to the watchlist based on how many the user says they would like to add.
             watchlist.append(self.add_specific_product())
 
-        self.product = Product(name, strike_price, notifications, watchlist)
+        # self.product = Product(name, strike_price, notifications, watchlist)
+        self.product = Product(name, strike_price, watchlist)
 
         self.user.add_item(self.product)
 
@@ -226,6 +225,7 @@ class App_Logic:
 
 # This function is unfinished
 
+
     def menu_add_product_links(self):
         print("Change Product Links")
 
@@ -244,6 +244,7 @@ class App_Logic:
 
 
 # This function is unfinished
+
 
     def menu_remove_product_links(self):
         print("Change Product Links")
@@ -279,7 +280,7 @@ class App_Logic:
         pineapple = self.user.get_item(old_name)
 
         print(pineapple)
-        print(pineapple.is_product_being_tracked)
+        # print(pineapple.is_product_being_tracked)
         print(f'pineapple is: ', type(pineapple))
 
         notification = self.user_inputs.capture_notification()
@@ -289,7 +290,8 @@ class App_Logic:
         watchlist = pineapple.specific_product_list
 
         # We need to delete the current product from the user and replace it with this product that we rebuilt
-        self.product = Product(name, strike_price, notification, watchlist)
+        self.product = Product(name, strike_price, watchlist)
+        self.product.is_product_being_tracked = notification
 
         self.user.remove_item(old_name)
         self.user.add_item(self.product)
@@ -308,7 +310,6 @@ class App_Logic:
 #     def quit():
 #         global exitProgram
 #         exitProgram=True
-
 
     def keyboard_quit(self, message):
         sys.exit(message)

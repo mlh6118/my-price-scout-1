@@ -20,10 +20,10 @@ class DBUtils():
     def set_user(self, user):
 
         found_user = self.connection.user_data.user_data.find_one(
-            {f"email": {user.email}})
+            {"email": f"{user.email}"})
         if found_user:
             self.connection.user_data.user_data.delete_one(
-                {f"email": {user.email}})
+                {"email": f"{user.email}"})
 
         user_document = {
             "email": f"{user.email}",
