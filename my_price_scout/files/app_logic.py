@@ -41,6 +41,8 @@ from specific_product import Specific_Product
 from scraper import Scraper
 from temptracker import Tracker
 
+## The scraper function will return a string if the url is wrong or something but an integer if the scraper work - need to update ioutils
+
 
 class App_Logic:
     def __init__(self) -> None:

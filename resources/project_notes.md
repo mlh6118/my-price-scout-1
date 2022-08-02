@@ -16,15 +16,10 @@
     * helper methods: get_user, create_user, save_user
     * save_user will parse the User instance into key values and save to Db 
       using Database Utils
-  * menu: inputs - none, outputs - screen prompts or return information
+  * Menu: inputs - none, outputs - screen prompts or return information
     * helpers: IO Utils, User, and Item
-  * remove_url: calls the remove_url method in Item
-    * inputs - website name (i.e., Amazon), outputs - confirmation 
-      string
-    * if removing the only link, then prompt user for new link or to 
-      remove item
-  * manage_user_items: logic for when a user has items to add, remove, or 
-    edit items
+    * manage_user_items: logic for when a user has items to add, remove, or 
+      edit items
 
 
 * User
