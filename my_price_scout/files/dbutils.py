@@ -35,9 +35,15 @@ class DBUtils():
         self.connection.user_data.user_data.insert_one(user_document)
 
     def get_user(self, user_name):
+
         found_user = self.connection.user_data.user_data.find_one(
             {"email": f"{user_name}"})
-        parsed_user = User(found_user["email"], found_user["phone_number"], found_user["cell_carrier"], [Product(item["name"], item["target_price"], [
-            Specific_Product(link["website"], link["url"], link["price"]) for link in item["specific_product_list"]]) for item in found_user["watchlist"]])
+        if found_user:
+            parsed_user = User(found_user["email"], found_user["phone_number"], found_user["cell_carrier"], [Product(item["name"], item["target_price"], [
+                Specific_Product(link["website"], link["url"], link["price"]) for link in item["specific_product_list"]]) for item in found_user["watchlist"]])
 
-        return parsed_user
+            return parsed_user
+
+        else:
+
+            return None

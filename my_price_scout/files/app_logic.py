@@ -73,7 +73,9 @@ class App_Logic:
         if self.database.get_user(email) == None:
             self.create_user(email)
         else:
-            self.user = self.get_user(email)
+            self.get_user(email)
+
+            print(self.user)
 
     def create_user(self, email):
         print("Welcome new user! Let's get you set up with an account!")
@@ -81,8 +83,8 @@ class App_Logic:
         number = self.user_inputs.capture_number()
         carrier = self.user_inputs.capture_carrier()
 
-        self.user = User(email, number, carrier)
-
+        current_user = User(email, number, carrier)
+        self.user = current_user
         print(self.user)
 
         print("Let's track your first product")
