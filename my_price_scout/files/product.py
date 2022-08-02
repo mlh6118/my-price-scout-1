@@ -1,18 +1,17 @@
 
 class Product:
     def __init__(self, product_name, target_price,
-                 is_product_being_tracked=True,
-                 specific_product_list=[]):
+                 specific_product_list=None):
         self.product_name = product_name
-        self.is_product_being_tracked = is_product_being_tracked
-        self.specific_product_list = specific_product_list
+        self.is_product_being_tracked = True
+        self.specific_product_list = specific_product_list if specific_product_list else []
         self.target_price = target_price
 
     def __repr__(self):
-        return f"Product Name: {self.product_name}, Target Price: {self.target_price}, Notifications: {self.is_product_being_tracked}, Specific Product: {self.specific_product_list},"
+        return f"Product Name: {self.product_name}, Target Price: {self.target_price}, Notifications: {self.is_product_being_tracked}, Specific Product: {self.specific_product_list}"
 
     def __str__(self):
-        return f"Product Name: {self.product_name}, Target Price: {self.target_price}, Notifications: {self.is_product_being_tracked}, Specific Product: {self.specific_product_list},"
+        return f"Product Name: {self.product_name}, Target Price: {self.target_price}, Notifications: {self.is_product_being_tracked}, Specific Product: {self.specific_product_list}"
 
     def add_new_specific_product(self, specific_product):
         """
@@ -56,7 +55,6 @@ class Product:
         self.add_new_specific_product(specific_product)
 
         return f"Specific product link has been updated."
-
 
     # def product_url_count(self):
     #     """

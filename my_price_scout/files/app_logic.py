@@ -34,7 +34,7 @@
 
 import sys
 from ioutils import IOUtils
-from tempDBUtils import DBUtils
+from my_price_scout.files.dbutils import DBUtils
 from user import User
 from product import Product
 from specific_product import Specific_Product

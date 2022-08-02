@@ -1,0 +1,37 @@
+import dotenv
+import os
+from pymongo import MongoClient
+from user import User
+from product import Product
+from specific_product import Specific_Product
+
+
+dotenv.load_dotenv(dotenv.find_dotenv())
+
+
+password = os.environ.get("MONGO_PASSWORD")
+
+
+class DBUtils():
+    def __init__(self):
+        self.connection = MongoClient(
+            f"mongodb+srv://mypricescout:{password}@my-price-scout-users.yugh3.mongodb.net/?retryWrites=true&w=majority")
+
+    def set_user(self, user):
+
+        user_document = {
+            "email": f"{user.email}",
+            "phone_number": user.phone_number,
+            "cell_carrier": f"{user.cell_carrier}",
+            "watchlist": [{"name": product.product_name, "is_product_being_tracked": product.is_product_being_tracked, "specific_product_list": [{"website": f"{specific_product.website}", "url": f"{specific_product.url}", "price": f"{specific_product.price}"} for specific_product in product.specific_product_list], "target_price": f"{product.target_price}"} for product in user.watchlist]
+        }
+        print(user_document)
+        self.connection.user_data.user_data.insert_one(user_document)
+
+    def get_user(self, user_name):
+        found_user = self.connection.user_data.user_data.find_one(
+            {"email": f"{user_name}"})
+        parsed_user = User(found_user["email"], found_user["phone_number"], found_user["cell_carrier"], [Product(item["name"], item["target_price"], [
+            Specific_Product(link["website"], link["url"], link["price"]) for link in item["specific_product_list"]]) for item in found_user["watchlist"]])
+
+        return parsed_user
