@@ -75,7 +75,7 @@ class App_Logic:
         else:
             self.get_user(email)
 
-            print(self.user)
+            #print(self.user)
 
     def create_user(self, email):
         print("Welcome new user! Let's get you set up with an account!")
@@ -152,13 +152,7 @@ class App_Logic:
 
 
     def menu_view_product_info(self):
-        # This function may not work yet - things that break are commented out
         print("View Product Info")
-        # print("You are currently tracking:")
-        # print(self.user)
-
-        # watchlist = self.user.get_watchlist()
-        # print(watchlist)
 
         print(self.user)
         product_object_list = self.user.get_watchlist()
@@ -196,13 +190,13 @@ class App_Logic:
         website, url = self.user_inputs.capture_website()
 
         if website == "Amazon":
-            current_price = self.scraper.scrape_amazon()
+            current_price = self.scraper.scrape_amazon(url)
 
         if website == "Target":
-            current_price = self.scraper.scrape_target()
+            current_price = self.scraper.scrape_target(url)
 
         if website == "Walmart":
-            current_price = self.scraper.scrape_walmart()
+            current_price = self.scraper.scrape_walmart(url)
 
         self.specific_product = Specific_Product(website, url, current_price)
 
@@ -273,7 +267,7 @@ class App_Logic:
 
         old_name = self.user_inputs.capture_product_name()
 
-        print(old_name)
+        # print(old_name)
 
         # Up to here was mysteriously working
         print(self.user.get_item(old_name))
@@ -281,9 +275,9 @@ class App_Logic:
         # Pineapple is the name of the temporary product object that we are changing
         pineapple = self.user.get_item(old_name)
 
-        print(pineapple)
+        # print(pineapple)
         # print(pineapple.is_product_being_tracked)
-        print(f'pineapple is: ', type(pineapple))
+        # print(f'pineapple is: ', type(pineapple))
 
         notification = self.user_inputs.capture_notification()
 
