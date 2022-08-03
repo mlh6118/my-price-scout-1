@@ -12,7 +12,7 @@ class Scraper:
     def __init__(self, url=None):
         self.url = url
 
-    def scrape_amazon(url):
+    def scrape_amazon(self, url):
 
         URL = url
 
@@ -37,7 +37,7 @@ class Scraper:
             print(float(actual_price[0]))
             return(float(actual_price[0]))
 
-    def scrape_target(url):
+    def scrape_target(self, url):
 
         URL = url
 
@@ -62,7 +62,7 @@ class Scraper:
             print(float(actual_price[0]))
             return (float(actual_price[0]))
 
-    def scrape_walmart(url):
+    def scrape_walmart(self, url):
 
         URL = url
 
@@ -109,7 +109,7 @@ if __name__ == "__main__":
     Scraper.scrape_target(
         'https://www.target.com/p/hisense-55-34-class-a6g-series-4k-uhd-android-smart-tv-55a6g/-/A-82802681#lnk=sametab')
     # Scraper.scrape_target(
-    #     'https://www.target.com/p/sylvania-portable-cd-radio-boom-box/-/A-86782044#lnk=sametab')
+    #     '``')
     # Scraper.scrape_target(
     #     'https://www.target.com/p/goumikids-thermal-organic-cotton-pants/-/A-85165008?preselect=85165038#lnk=sametab')
     # Scraper.scrape_target(
