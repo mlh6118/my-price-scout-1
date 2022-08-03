@@ -94,7 +94,7 @@ class Scraper:
 if __name__ == "__main__":
 
     Scraper.scrape_amazon(
-        'https://www.amazon.com/APC-Battery-Protector-BackUPS-BX1500M/dp/B06VY6FXMM?ref_=Oct_DLandingS_D_d1d1e0d6_60&smid=ATVPDKIKX0DER&th=1')
+        'https://www.amazon.com/Ultrean-Electric-Oilless-Presets-Nonstick/dp/B088H6WXVF/ref=sr_1_25?crid=4R7FMTC5M04B&keywords=air+fryer&psr=PDAY&qid=1657678186&s=prime-day&sprefix=air+fryer%2Cprime-day%2C50&sr=1-25')
     # Scraper.scrape_amazon(
     #     'https://www.amazon.com/dp/B07VHZ41L8?ref_=nav_em__k_ods_ha_ta_0_2_4_6')
     # Scraper.scrape_amazon(
@@ -106,8 +106,8 @@ if __name__ == "__main__":
     # Scraper.scrape_amazon(
     #     'https://www.amazon.com/Napkins-Lucheon-Beverage-Guest-BIrthday/dp/B00JBG31KK/ref=sr_1_2?crid=258BO8L7ZNNWE&keywords=napkins&qid=1659396596&sprefix=napkins%2Caps%2C186&sr=8-2')
 
-    Scraper.scrape_target(
-        'https://www.target.com/p/hisense-55-34-class-a6g-series-4k-uhd-android-smart-tv-55a6g/-/A-82802681#lnk=sametab')
+    # Scraper.scrape_target(
+    #     'https://www.target.com/p/hisense-55-34-class-a6g-series-4k-uhd-android-smart-tv-55a6g/-/A-82802681#lnk=sametab')
     # Scraper.scrape_target(
     #     'https://www.target.com/p/sylvania-portable-cd-radio-boom-box/-/A-86782044#lnk=sametab')
     # Scraper.scrape_target(
@@ -119,8 +119,8 @@ if __name__ == "__main__":
     # Scraper.scrape_target(
     #     'https://www.target.com/p/disposable-paper-napkins-230ct-smartly-8482/-/A-75557241#lnk=sametab')
 
-    Scraper.scrape_walmart(
-        'https://www.walmart.com/ip/Rayovac-High-Energy-AAA-Batteries-60-Pack-Triple-A-Batteries/45598335')
+    # Scraper.scrape_walmart(
+    #     'https://www.walmart.com/ip/Rayovac-High-Energy-AAA-Batteries-60-Pack-Triple-A-Batteries/45598335')
     # Scraper.scrape_walmart(
     #     'https://www.walmart.com/ip/LG-55-Class-4K-UHD-OLED-Web-OS-Smart-TV-with-Dolby-Vision-A2-Series-OLED55A2PUA/218195189')
     # Scraper.scrape_walmart(
