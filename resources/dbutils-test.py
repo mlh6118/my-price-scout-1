@@ -76,18 +76,18 @@ class Item():
 
 
 class Link():
-    def __init__(self, website, url, actual_price):
+    def __init__(self, website, url, price):
         self.website = website
         self.url = url
-        self.actual_price = actual_price
+        self.price = price
 
     def __repr__(self):
 
-        return f"website: {self.website}, url: {self.url}, actual_price: {self.actual_price}"
+        return f"website: {self.website}, url: {self.url}, price: {self.actual_price}"
 
     def __str__(self):
 
-        return f"website: {self.website}, url: {self.url}, actual_price: {self.actual_price}"
+        return f"website: {self.website}, url: {self.url}, price: {self.actual_price}"
 
 
 link1 = Link("amazon", "111.com", 50)
@@ -123,7 +123,7 @@ def set_user(user):
 def get_user(user_name):
     found_user = user_db.user_data.find_one({"email": f"{user_name}"})
     parsed_user = User(found_user["email"], found_user["phone_number"], found_user["cell_carrier"], [Item(item["name"], item["target_price"], [
-                       Link(link["website"], link["url"], link["actual_price"]) for link in item["specific_product_list"]]) for item in found_user["watchlist"]])
+                       Link(link["website"], link["url"], link["price"]) for link in item["specific_product_list"]]) for item in found_user["watchlist"]])
 
     return parsed_user
 
@@ -151,7 +151,7 @@ def update_all_users():
                 #     specific_product["price"] = scraper.scrape_target()
                 # if specific_product["website"] == "Walmart":
                 #     specific_product["price"] = scraper.scrape_walmart()
-                specific_product["actual_price"] = 888
+                specific_product["price"] = 888
 
     return user_list
 
