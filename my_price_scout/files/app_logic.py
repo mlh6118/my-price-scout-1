@@ -38,7 +38,7 @@ from dbutils import DBUtils
 from user import User
 from product import Product
 from specific_product import Specific_Product
-from tempscraper import Scraper
+from scraper import Scraper
 from temptracker import Tracker
 
 # The scraper function will return a string if the url is wrong or something but an integer if the scraper work - need to update ioutils
