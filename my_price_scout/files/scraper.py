@@ -1,5 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 import re
 
 
@@ -24,9 +28,14 @@ class Scraper:
         finds = re.findall(
             r'\$\d{1,3}(?:[,]\d{3})*(?:[.]\d{0,2})?|\d{1,3}(?:[ ]\d{3})*(?:[,]\d{0,2})?', str(soup2[0]))
 
-        print(finds[0])
-
-        return(finds[0])
+        if finds is None:
+            actual_price = "Price not available"
+            return actual_price
+        else:
+            actual_price = re.findall(
+                r'\d{1,3}(?:[,]\d{3})*(?:[.]\d{0,2})?|\d{1,3}(?:[ ]\d{3})*(?:[,]\d{0,2})?', finds[0])
+            print(float(actual_price[0]))
+            return(float(actual_price[0]))
 
     def scrape_target(url):
 
@@ -50,44 +59,36 @@ class Scraper:
             return actual_price
         else:
             actual_price = re.findall(r'\d+(?:\.\d+)?', item_found[0])
-            print(str("$"+actual_price[0]))
-            return str("$"+actual_price[0])
+            print(float(actual_price[0]))
+            return (float(actual_price[0]))
 
     def scrape_walmart(url):
 
         URL = url
 
-        headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36", "Accept-Encoding": "gzip, deflate",
-                   "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "DNT": "1", "Connection": "close", "Upgrade-Insecure-Requests": "1"}
+        options = Options()
+        options.add_argument("start-maximized")
+        driver = webdriver.Chrome(service=Service(
+            ChromeDriverManager().install()), options=options)
+        driver.get(URL)
+        page = driver.page_source
+        driver.close()
 
-        # page = requests.get(URL, headers=headers)
+        finds = re.findall(
+            r'submapType\"\:null},\"currentPrice\"\:{\"price\"\:\d+(?:\.\d+)?', page)
 
-        # soup = BeautifulSoup(page.content, "html.parser")
+        item_found = []
 
-        # print(soup.find_all(class_="b lh-copy dark-gray mr2 f1"))
+        for find in finds:
+            item_found.append(find)
 
-        # soup2 = BeautifulSoup(soup1.prettify(), "html.parser")
-
-        # finds = re.findall(r'current_retail\\\"\:\d+(?:\.\d+)?', soup2)
-
-        # soup2 = soup1.find_all()
-
-        # print(soup1.find_all())
-
-        # item_found = []
-
-        # for find in finds:
-        #     item_found.append(find)
-
-        # if item_found is None:
-        #     actual_price = "Price not available"
-        #     return actual_price
-        # else:
-        #     actual_price = re.findall(r'\d+(?:\.\d+)?', item_found[0])
-        #     print(str("$"+actual_price[0]))
-        #     return str("$"+actual_price[0])
-
-        return 100
+        if item_found is None:
+            actual_price = "Price not available"
+            return actual_price
+        else:
+            actual_price = re.findall(r'\d+(?:\.\d+)?', item_found[0])
+            print(float(actual_price[0]))
+            return (float(actual_price[0]))
 
 
 if __name__ == "__main__":
@@ -105,8 +106,8 @@ if __name__ == "__main__":
     # Scraper.scrape_amazon(
     #     'https://www.amazon.com/Napkins-Lucheon-Beverage-Guest-BIrthday/dp/B00JBG31KK/ref=sr_1_2?crid=258BO8L7ZNNWE&keywords=napkins&qid=1659396596&sprefix=napkins%2Caps%2C186&sr=8-2')
 
-    # Scraper.scrape_target(
-    #     'https://www.target.com/p/hisense-55-34-class-a6g-series-4k-uhd-android-smart-tv-55a6g/-/A-82802681#lnk=sametab')
+    Scraper.scrape_target(
+        'https://www.target.com/p/hisense-55-34-class-a6g-series-4k-uhd-android-smart-tv-55a6g/-/A-82802681#lnk=sametab')
     # Scraper.scrape_target(
     #     'https://www.target.com/p/sylvania-portable-cd-radio-boom-box/-/A-86782044#lnk=sametab')
     # Scraper.scrape_target(
@@ -118,5 +119,15 @@ if __name__ == "__main__":
     # Scraper.scrape_target(
     #     'https://www.target.com/p/disposable-paper-napkins-230ct-smartly-8482/-/A-75557241#lnk=sametab')
 
+    Scraper.scrape_walmart(
+        'https://www.walmart.com/ip/Rayovac-High-Energy-AAA-Batteries-60-Pack-Triple-A-Batteries/45598335')
     # Scraper.scrape_walmart(
-    #     'https://www.walmart.com/ip/Rayovac-High-Energy-AAA-Batteries-60-Pack-Triple-A-Batteries/45598335')
+    #     'https://www.walmart.com/ip/LG-55-Class-4K-UHD-OLED-Web-OS-Smart-TV-with-Dolby-Vision-A2-Series-OLED55A2PUA/218195189')
+    # Scraper.scrape_walmart(
+    #     'https://www.walmart.com/ip/Poppy-Women-s-Vegan-Leather-Quilted-Crossbady-Shoulder-Purse-Drawstring-Bucket-Bag-Messenger-Bag/401837777?athbdg=L1900')
+    # Scraper.scrape_walmart(
+    #     'https://www.walmart.com/ip/Loloi-II-Wynter-WYN-02-Auburn-Multi-Oriental-Area-Rug-8-6-x-11-6/178864229')
+    # Scraper.scrape_walmart(
+    #     'https://www.walmart.com/ip/Pompeii3-1-1-10ct-Cushion-Halo-Solitaire-Diamond-Engagement-Wedding-Ring-Set-White-Gold/997500370?athbdg=L1700')
+    # Scraper.scrape_walmart(
+    #     'https://www.walmart.com/ip/Clorox-Toilet-Bowl-Cleaner-with-Bleach-Rain-Clean-24-oz/12443821')
