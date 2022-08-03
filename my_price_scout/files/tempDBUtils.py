@@ -5,4 +5,3 @@ class DBUtils():
 
     def set_user(self, user_object):
         return None
-    
