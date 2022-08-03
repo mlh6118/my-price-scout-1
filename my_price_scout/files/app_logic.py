@@ -6,31 +6,18 @@
 #   * start: inputs - none, outputs - screen prompts or return information
 #     * helpers: IO Utils, User, and Item
 #   * menu: Routing the user through the options they have available. inputs - None outputs - function calls based on the users selections.(Different options for where they would like to go and some sort of back function)
-# 
-# * remove_url: calls the remove_url method in Item
-#     * inputs - website name (i.e., Amazon), outputs - confirmation 
-#       string
-#     * if removing the only link, then prompt user for new link or to 
-#       remove item
-#   * manage_user_items: logic for when a user has items to add, remove, or 
-#     edit items
 
-# To Do :
-# create a menu for the user with the options for the things they can change. Create methods that call the other class' functions that hold those methods 
-# Create the board that gives the other classes the info they need/build out the user with the products and build out the products with the specific products
 
 ## Need the team - Somewhere we need to add the sleep function that calls the scraper every 10 minutes. Not sure how that gets integrated with the serverless portion.
-## View Tracked Products and View Products and Pricing have been combined into view product info since that would be returning all of the product objects. This only works if we move get summary to user
-## Looks like there would need to be another edit product section to incorporate functions from temp_product and_name, add_target_price. These functions may not be necessary since we are passing this to the product to start with.
 
 
 ## To Do List
+# Two functions to make work from the product functions
 # Hitting enter from io utils - especially in input carrier.
 # ioutils testing
-# Toggle Notifications not saving in User
 # Handle Error Message to User before breaking
-# Product name not saving in user
 
+## The scraper function will return a string if the url is wrong or something but an integer if the scraper work - need to update ioutils
 
 import sys
 from ioutils import IOUtils
@@ -41,7 +28,6 @@ from specific_product import Specific_Product
 from scraper import Scraper
 from temptracker import Tracker
 
-## The scraper function will return a string if the url is wrong or something but an integer if the scraper work - need to update ioutils
 
 
 class App_Logic:
@@ -166,10 +152,6 @@ class App_Logic:
 
         print(self.user)
         product_object_list = self.user.get_watchlist()
-        
-        for _ in product_object_list:
-            # The _ means some item
-            print(self.product.get_summary())
 
 
     def menu_input_new_product(self):
