@@ -196,13 +196,15 @@ class App_Logic:
         website, url = self.user_inputs.capture_website()
 
         if website == "Amazon":
-            current_price = self.scraper.scrape_amazon()
+            current_price = self.scraper.scrape_amazon(url)
 
         if website == "Target":
-            current_price = self.scraper.scrape_target()
+            current_price = self.scraper.scrape_target(url)
 
         if website == "Walmart":
-            current_price = self.scraper.scrape_walmart()
+            current_price = self.scraper.scrape_walmart(url)
+
+        print (website, url)
 
         self.specific_product = Specific_Product(website, url, current_price)
 

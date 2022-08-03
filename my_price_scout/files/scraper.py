@@ -12,7 +12,7 @@ class Scraper:
     def __init__(self, url=None):
         self.url = url
 
-    def scrape_amazon(url):
+    def scrape_amazon(self, url):
 
         URL = url
 
@@ -37,7 +37,7 @@ class Scraper:
             print(float(actual_price[0]))
             return(float(actual_price[0]))
 
-    def scrape_target(url):
+    def scrape_target(self, url):
 
         URL = url
 
@@ -62,7 +62,7 @@ class Scraper:
             print(float(actual_price[0]))
             return (float(actual_price[0]))
 
-    def scrape_walmart(url):
+    def scrape_walmart(self, url):
 
         URL = url
 
