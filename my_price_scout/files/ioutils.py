@@ -148,7 +148,7 @@ class IOUtils:
     def capture_website(self):
         """Asks the user whether they would input a link to Amazon, Target, or Walmart. Also collects the link and returns it together with the site name in lowercase."""
 
-        print("Would you like to track this product on Amazon, Target or Walmart?")
+        print("Is the product URL from Amazon, Target or Walmart?")
 
         store = input("> ").title()
         # This makes the store name Title case like Amazon, Target, or Walmart instead of being fully lowercase.
@@ -172,7 +172,7 @@ class IOUtils:
         """Captures a URL for specific_product"""
         ## Need to talk with the team about this since it is NOT validating the URL Currently past making sure than the link includes the name of the site in question.
 
-        print(f"Please input the URL for the item you would like to track from {store_name}")
+        print(f"Please input the URL for the item from {store_name}")
 
         url = input("> ")
         
@@ -264,9 +264,10 @@ Press the number next to what you would like to do
 [1] View Product Prices
 [2] Input A New Product
 [3] Remove A Product
-[4] Add Product Links
-[5] Remove Product Links
-[6] Toggle Product Notifications
+[4] Add Product Links for Tracked Products
+[5] Remove Product Links for Tracked Products
+[6] Change Product Links for Tracked Products
+[7] Toggle Product Notifications
 
 Press q to quit at any time
         """

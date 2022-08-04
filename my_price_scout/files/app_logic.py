@@ -140,15 +140,16 @@ class App_Logic:
             self.manage_user_items_menu()
 
         if steering == 6:
+            self.menu_remove_product_links()
+            self.manage_user_items_menu()
+
+        if steering == 7:
             self.menu_toggle_product_notifications()
             self.manage_user_items_menu()
 
         # There should be some sort of input in these cases for the user to go back without adjusting anything.
 
         # Adjust price etc should show the current value before asking the user to change things.
-
-
-# The functions from here down need to be linked with other class methods to test whether they actually work.
 
 
     def menu_view_product_info(self):
@@ -218,16 +219,12 @@ class App_Logic:
 
         print(f"{name} has been removed from tracking")
 
-
-# This function is unfinished
-
-
     def menu_add_product_links(self):
-        print("Change Product Links")
+        print("Add Product Links")
 
         print("Here is the list of products you currently have saved:")
         self.menu_view_product_info()
-        print("You are changing a link for a product")
+        print("You are adding a link for a product")
 
         name = self.user_inputs.capture_product_name()
 
@@ -235,15 +232,30 @@ class App_Logic:
 
         self.specific_product = self.add_specific_product()
 
-        # self.product.add_url(self.specific_product)
-        # This crucial bit is not working for some reason
+        # print (self.specific_product)
 
-
-# This function is unfinished
+        self.product.add_new_specific_product(self.specific_product)
 
 
     def menu_remove_product_links(self):
-        print("Change Product Links")
+        print("Remove Product Links")
+
+        print("Here is the list of products you currently have saved:")
+        self.menu_view_product_info()
+        print("You are removing a link for a product")
+
+        name = self.user_inputs.capture_product_name()
+
+        print("Which website's link would you like to remove? Copy and paste the website and link that is currently being tracked from above.")
+        website, url = self.user_inputs.capture_website()
+
+        self.product = self.user.get_item(name)
+
+        self.product.remove_old_specific_product(website, url)
+
+
+    def change_product_links(self):
+        print("Change a Product Link")
 
         print("Here is the list of products you currently have saved:")
         self.menu_view_product_info()
@@ -251,13 +263,16 @@ class App_Logic:
 
         name = self.user_inputs.capture_product_name()
 
-        print("Which website's link would you like to remove?")
-        website = self.user_inputs.capture_website()
-
         self.product = self.user.get_item(name)
 
-        # self.product.remove_url(website)
-        # This crucial bit is not working for some reason
+
+        print("Which website's link would you like to remove? Copy and paste the website and link that is currently being tracked from above.")
+        website, url = self.user_inputs.capture_website()
+
+        self.specific_product = self.add_specific_product()
+
+        self.product.change_url_for_specific_product(self.specific_product, website, url)
+
 
     def menu_toggle_product_notifications(self):
         print("Toggle Product Notifications")
@@ -269,7 +284,6 @@ class App_Logic:
 
         # print(old_name)
 
-        # Up to here was mysteriously working
         print(self.user.get_item(old_name))
 
         # Pineapple is the name of the temporary product object that we are changing
@@ -299,13 +313,6 @@ class App_Logic:
         print("This change has been captured")
 
 
-# import keyboard
-#     keyboard.add_hotkey('q', lambda: quit())
-#     exitProgram=False
-
-#     def quit():
-#         global exitProgram
-#         exitProgram=True
 
     def keyboard_quit(self, message):
         sys.exit(message)

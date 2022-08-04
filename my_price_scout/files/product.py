@@ -10,14 +10,14 @@ class Product:
     def __repr__(self):
         return f"\nProduct Information\n  " \
                f"Product Name: {self.product_name}\n  " \
-               f"Target Price: {self.target_price}\n  " \
+               f"Target Price: ${self.target_price}\n  " \
                f"Notifications: {self.is_product_being_tracked}\n  " \
                f"Specific Product: {self.specific_product_list}"
 
     def __str__(self):
         return f"\nProduct Information\n  " \
                f"Product Name: {self.product_name}\n  " \
-               f"Target Price: {self.target_price}\n  " \
+               f"Target Price: ${self.target_price}\n  " \
                f"Notifications: {self.is_product_being_tracked}\n  " \
                f"Specific Product: {self.specific_product_list}"
 
@@ -33,7 +33,7 @@ class Product:
 
         self.specific_product_list.append(specific_product)
 
-    def remove_old_specific_product(self, website):
+    def remove_old_specific_product(self, website, url):
         """
         Arguments:
              website: The website to remove the link for.  The values may be
@@ -42,10 +42,10 @@ class Product:
             string: Confirmation that the method worked.
         """
         for specific_product in self.specific_product_list:
-            if website == specific_product.website:
+            if url == specific_product.url:
                 self.specific_product_list.remove(specific_product)
 
-                return f"{specific_product} removed."
+                return f"{specific_product} link from {website} removed."
 
         return f"Specific product on {website} not found."
 
