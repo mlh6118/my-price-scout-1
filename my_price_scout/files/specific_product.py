@@ -9,13 +9,13 @@ class Specific_Product():
         self.price = price
 
     def __repr__(self):
-        return f'\nProduct Pages\n  ' \
+        return f'\nProduct Page\n  ' \
                f'Website: {self.website}\n  ' \
-               f'Price: {self.price}\n  ' \
+               f'Current Price: ${self.price}\n  ' \
                f'URL: {self.url}'
 
     def __str__(self):
-        return f'\nProduct Pages\n  ' \
+        return f'\nProduct Page\n  ' \
                f'Website: {self.website}\n  ' \
-               f'Price: {self.price}\n  ' \
+               f'Current Price: ${self.price}\n  ' \
                f'URL: {self.url}'
