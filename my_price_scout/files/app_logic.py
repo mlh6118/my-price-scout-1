@@ -140,7 +140,7 @@ class App_Logic:
             self.manage_user_items_menu()
 
         if steering == 6:
-            self.menu_remove_product_links()
+            self.change_product_links()
             self.manage_user_items_menu()
 
         if steering == 7:
